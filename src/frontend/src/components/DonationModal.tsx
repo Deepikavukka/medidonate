@@ -158,8 +158,12 @@ export function DonationModal({
         );
       }
       onClose();
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (err) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
+      toast.error(msg);
     }
   };
 

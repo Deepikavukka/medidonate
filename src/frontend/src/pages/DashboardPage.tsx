@@ -59,8 +59,10 @@ export function DashboardPage() {
     try {
       const count = await seedMutation.mutateAsync();
       toast.success(`${count} sample donations added successfully!`);
-    } catch {
-      toast.error("Failed to seed donations");
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to seed donations",
+      );
     }
   };
 
@@ -73,8 +75,10 @@ export function DashboardPage() {
         total += Number(count);
       }
       toast.success(`${total} sample donations added successfully!`);
-    } catch {
-      toast.error("Failed to seed donations");
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to seed donations",
+      );
     } finally {
       setSeedingMax(false);
     }
@@ -84,8 +88,10 @@ export function DashboardPage() {
     try {
       const count = await seedNeedsMutation.mutateAsync();
       toast.success(`${count} need requests added!`);
-    } catch {
-      toast.error("Failed to seed need requests");
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to seed need requests",
+      );
     }
   };
 

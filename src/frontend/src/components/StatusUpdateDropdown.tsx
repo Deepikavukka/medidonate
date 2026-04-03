@@ -39,8 +39,10 @@ export function StatusUpdateDropdown({
     try {
       await mutation.mutateAsync({ id, status: newStatus });
       toast.success(`Status updated to ${statusLabels[key]}`);
-    } catch {
-      toast.error("Failed to update status");
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : "Failed to update status";
+      toast.error(msg);
     }
   };
 

@@ -426,10 +426,12 @@ actor {
   };
 
   public shared ({ caller }) func updateStatus(id : Nat, status : DonationStatus) : async Bool {
-    if (not AccessControl.isAdmin(accessControlState, caller)) { return false };
     switch (donationsV4.get(id)) {
       case (null) { false };
       case (?e) {
+        if (not Principal.equal(caller, e.creatorPrincipal) and not AccessControl.isAdmin(accessControlState, caller)) {
+          return false;
+        };
         let event : CustodyEvent = {
           timestamp = Time.now();
           changedBy = caller;
